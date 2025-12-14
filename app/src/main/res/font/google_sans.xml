@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Regular (weight 400) -->
+    <font
+        android:font="@font/google_sans_regular"
+        android:fontWeight="400"
+        android:fontStyle="normal" />
+
+    <!-- Italic (weight 400 italic) -->
+    <font
+        android:font="@font/google_sans_italic"
+        android:fontWeight="400"
+        android:fontStyle="italic" />
+
+    <!-- Medium (weight 500) -->
+    <font
+        android:font="@font/google_sans_medium"
+        android:fontWeight="500"
+        android:fontStyle="normal" />
+
+    <!-- Semi-bold (weight 600) -->
+    <font
+        android:font="@font/google_sans_semi_bold"
+        android:fontWeight="600"
+        android:fontStyle="normal" />
+
+    <!-- Bold (weight 700) -->
+    <font
+        android:font="@font/google_sans_bold"
+        android:fontWeight="700"
+        android:fontStyle="normal" />
+
+</font-family>
