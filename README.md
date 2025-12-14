@@ -5,7 +5,7 @@ The player supports real audio playback using **Media3 ExoPlayer** and includes 
 
 ---
 
-## Demo
+## 🎧 Demo
 | Recording |
 | -- |
 | <video width=350 src="https://github.com/user-attachments/assets/e56ca843-b885-486c-8217-4a56fb8f9756" /> |
