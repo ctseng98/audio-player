@@ -45,6 +45,8 @@ The player supports real audio playback using **Media3 ExoPlayer** and includes 
 ---
 
 ### 🎨 UX & Animations
+- **Fallback placeholder** when missing album art:
+  - <img width=350 src="https://github.com/user-attachments/assets/3536f74f-7b5a-4f67-ac87-f676c39f1bd4" />
 - **Press animations** for all control buttons:
   - Immediate scale-down feedback on press
   - Smooth spring-back on release
