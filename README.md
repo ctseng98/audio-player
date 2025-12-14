@@ -1,4 +1,4 @@
-# Audio Player (Compose)
+# Audio Player
 
 A modern, Compose-based audio player with a focus on **polished UX**, **accessibility**, and **internationalization**.  
 The player supports real audio playback using **Media3 ExoPlayer** and includes smooth, tactile animations for user interactions.
