@@ -1,6 +1,5 @@
 package com.example.musicplayer.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Column
@@ -60,7 +59,7 @@ private fun AudioContent(player: Player, modifier: Modifier = Modifier) {
                 .padding(top = 32.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            AlbumCover()
+            AlbumCover(ImageResult.Success(R.drawable.album))
             Spacer(Modifier.size(16.dp))
             Column {
                 Text(
@@ -83,15 +82,6 @@ private fun AudioContent(player: Player, modifier: Modifier = Modifier) {
         }
         AudioPlayerControls(player = player)
     }
-}
-
-@Composable
-private fun AlbumCover() {
-    Image(
-        painter = painterResource(R.drawable.album),
-        contentDescription = "Album art",
-        modifier = Modifier.size(88.dp)
-    )
 }
 
 @Composable
