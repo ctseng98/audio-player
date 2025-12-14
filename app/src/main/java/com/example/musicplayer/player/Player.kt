@@ -8,7 +8,6 @@ class Player(private val player: ExoPlayer) {
     val isPlaying: Boolean get() = player.isPlaying
     val currentPositionMs: Long get() = player.currentPosition
     val durationMs: Long get() = player.duration.coerceAtLeast(0L)
-    val bufferPercent: Int get() = player.bufferedPercentage
     val bufferedPositionMs: Long get() = player.bufferedPosition
 
 

@@ -1,13 +1,10 @@
 package com.example.musicplayer.ui
 
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,49 +15,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Repeat
-import androidx.compose.material.icons.filled.SkipNext
-import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
-import androidx.compose.material.icons.rounded.Pause
-import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Repeat
 import androidx.compose.material.icons.rounded.RepeatOn
 import androidx.compose.material.icons.rounded.SkipNext
 import androidx.compose.material.icons.rounded.SkipPrevious
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.musicplayer.player.Player
 import com.example.musicplayer.ui.theme.PrimaryBar
-import com.example.musicplayer.ui.theme.PrimarySelected
 import com.example.musicplayer.ui.theme.SecondaryBar
 import com.example.musicplayer.ui.theme.Typography
 import kotlinx.coroutines.delay
@@ -172,7 +149,7 @@ fun AudioPlayerControls(
             verticalAlignment = Alignment.CenterVertically
         ) {
             var isOnRepeat by remember { mutableStateOf(false) }
-            TrackButton(
+            ButtonWithInteractionFeedback(
                 icon = if (isOnRepeat) {
                     Icons.Rounded.RepeatOn
                 } else {
@@ -188,7 +165,7 @@ fun AudioPlayerControls(
                     isOnRepeat = !isOnRepeat
                 },
             )
-            TrackButton(
+            ButtonWithInteractionFeedback(
                 icon = Icons.Rounded.SkipPrevious,
                 description = "Skip to previous track",
                 onClick = { },
@@ -198,13 +175,13 @@ fun AudioPlayerControls(
                 onPause = { player.pause() },
                 onPlay = { player.play() }
             )
-            TrackButton(
+            ButtonWithInteractionFeedback(
                 icon = Icons.Rounded.SkipNext,
                 description = "Skip to next track",
                 onClick = { },
             )
             var isFavoriteTrack by remember { mutableStateOf(false) }
-            TrackButton(
+            ButtonWithInteractionFeedback(
                 icon = if (isFavoriteTrack) {
                     Icons.Rounded.Favorite
                 } else {
@@ -226,51 +203,13 @@ fun AudioPlayerControls(
 }
 
 @Composable
-private fun PlayButton(
-    isPlaying: Boolean,
-    onPlay: () -> Unit,
-    onPause: () -> Unit,
-) {
-    Box(
-        modifier = Modifier
-            .size(72.dp)
-            .clip(CircleShape)
-            .background(PrimarySelected)
-            .clickable {
-                if (isPlaying) {
-                    onPause()
-                } else {
-                    onPlay()
-                }
-            },
-        contentAlignment = Alignment.Center,
-    ) {
-        if (isPlaying) {
-            Icon(
-                imageVector = Icons.Rounded.Pause,
-                contentDescription = "Pause",
-                tint = Color.White,
-                modifier = Modifier.size(48.dp)
-            )
-        } else {
-            Icon(
-                imageVector = Icons.Rounded.PlayArrow,
-                contentDescription = "Play",
-                tint = Color.White,
-                modifier = Modifier.size(48.dp)
-            )
-        }
-    }
-}
-
-@Composable
 private fun DurationIndicator(
     shownPositionMs: Long,
     safeDurationMs: Long
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
             text = formatTimeMs(shownPositionMs),
@@ -281,110 +220,6 @@ private fun DurationIndicator(
             text = formatTimeMs(safeDurationMs),
             color = Color.White,
             style = Typography.bodyMedium
-        )
-    }
-}
-
-@Composable
-private fun TrackButton(
-    icon: ImageVector,
-    description: String,
-    onClick: () -> Unit,
-) {
-    Box(
-        modifier = Modifier
-            .size(40.dp)
-            .clip(CircleShape)
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center,
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = description,
-            tint = Color.White,
-            modifier = Modifier.size(36.dp)
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SliderTrackWithBuffer(
-    thumbSize: Dp,
-    sliderState: SliderState,
-    activeTrackColor: Color,
-    inactiveTrackColor: Color,
-    secondaryProgressPercentage: Float = 0.0f,
-    secondaryProgressColor: Color = PrimaryBar,
-) {
-    val height = 8.dp
-    Canvas(
-        Modifier
-            .fillMaxWidth()
-            .height(height),
-    ) {
-        val trackStrokeWidth = height.toPx()
-        val half = trackStrokeWidth / 2f
-        val thumbPadding = (thumbSize / 2).toPx()
-
-        val isRtl = layoutDirection == LayoutDirection.Rtl
-
-        // Inset start/end so round caps don't draw outside the canvas
-        val leftX = half
-        val rightX = size.width - half
-
-        val sliderLeft = Offset(leftX, center.y)
-        val sliderRight = Offset(rightX, center.y)
-
-        val sliderStart = if (isRtl) sliderRight else sliderLeft
-        val sliderEnd = if (isRtl) sliderLeft else sliderRight
-
-        // Normalize value -> fraction within range
-        val rangeStart = sliderState.valueRange.start
-        val rangeEnd = sliderState.valueRange.endInclusive
-        val range = (rangeEnd - rangeStart).takeIf { it > 0f } ?: 1f
-        val fraction = ((sliderState.value - rangeStart) / range).coerceIn(0f, 1f)
-
-        val sliderValueStart = sliderStart.copy(x = sliderStart.x - thumbPadding) // active track starts at track start
-        val sliderValueEnd = Offset(
-            x = sliderStart.x + (sliderEnd.x - sliderStart.x) * fraction,
-            y = center.y
-        )
-
-        val secondaryFraction = secondaryProgressPercentage.coerceIn(0f, 1f)
-        val secondaryX = if (isRtl) {
-            sliderStart.x + (sliderEnd.x - sliderStart.x) * (1f - secondaryFraction)
-        } else {
-            sliderStart.x + (sliderEnd.x - sliderStart.x) * secondaryFraction
-        }
-        val secondaryTrackEnd = Offset(secondaryX, center.y)
-
-        drawLine(
-            color = inactiveTrackColor,
-            start = sliderStart,
-            end = sliderEnd.copy(x = sliderEnd.x + thumbPadding * 2),
-            strokeWidth = trackStrokeWidth,
-            cap = StrokeCap.Round,
-        )
-
-        if ((isRtl && secondaryTrackEnd.x < sliderValueEnd.x) ||
-            (!isRtl && secondaryTrackEnd.x > sliderValueEnd.x)
-        ) {
-            drawLine(
-                color = secondaryProgressColor,
-                start = sliderValueEnd,
-                end = secondaryTrackEnd,
-                strokeWidth = trackStrokeWidth,
-                cap = StrokeCap.Round,
-            )
-        }
-
-        drawLine(
-            color = activeTrackColor,
-            start = sliderValueStart,
-            end = sliderValueEnd,
-            strokeWidth = trackStrokeWidth,
-            cap = StrokeCap.Round,
         )
     }
 }
