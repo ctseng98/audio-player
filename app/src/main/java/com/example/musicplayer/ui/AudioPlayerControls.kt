@@ -35,6 +35,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.example.musicplayer.player.Player
 import com.example.musicplayer.ui.theme.PrimaryBar
@@ -133,7 +136,14 @@ fun AudioPlayerControls(
                 positionMs = scrubMs.coerceIn(0L, safeDurationMs)
             },
             enabled = safeDurationMs > 0L,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics {
+                    // This description is read first, explaining what the slider does
+                    contentDescription = "Player progress bar"
+                    // This description updates as the value changes
+                    stateDescription = "Current position: ${formatTimeMs(shownPositionMs)}"
+                },
         )
 
         DurationIndicator(

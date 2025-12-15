@@ -19,9 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
@@ -47,8 +49,9 @@ private fun AudioContent(player: Player, modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(12.dp))
             .background(PrimaryBackground),
     ) {
+        val isRTL = LocalLayoutDirection.current == LayoutDirection.Rtl
         val marqueeModifier = Modifier.basicMarquee(
-            velocity = 20.dp,
+            velocity = if (isRTL) (-20).dp else 20.dp,
             initialDelayMillis = 800,
             repeatDelayMillis = 1500,
         )
