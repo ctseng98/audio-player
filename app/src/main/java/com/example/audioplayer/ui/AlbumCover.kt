@@ -1,4 +1,4 @@
-package com.example.musicplayer.ui
+package com.example.audioplayer.ui
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image

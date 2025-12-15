@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.musicplayer"
+    namespace = "com.example.audioplayer"
     compileSdk {
         version = release(36)
     }

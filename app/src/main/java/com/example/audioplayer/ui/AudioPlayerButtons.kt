@@ -1,4 +1,4 @@
-package com.example.musicplayer.ui
+package com.example.audioplayer.ui
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.musicplayer.ui.theme.PrimarySelected
+import com.example.audioplayer.ui.theme.PrimarySelected
 
 @Composable
 internal fun ButtonWithInteractionFeedback(

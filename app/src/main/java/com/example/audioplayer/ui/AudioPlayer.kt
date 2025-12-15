@@ -1,4 +1,4 @@
-package com.example.musicplayer.ui
+package com.example.audioplayer.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
@@ -28,10 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.musicplayer.R
-import com.example.musicplayer.player.Player
-import com.example.musicplayer.ui.theme.PrimaryBackground
-import com.example.musicplayer.ui.theme.Typography
+import com.example.audioplayer.R
+import com.example.audioplayer.player.Player
+import com.example.audioplayer.ui.theme.PrimaryBackground
+import com.example.audioplayer.ui.theme.Typography
 
 @Composable
 fun AudioPlayer(

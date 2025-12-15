@@ -1,4 +1,4 @@
-package com.example.musicplayer.ui
+package com.example.audioplayer.ui
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
@@ -39,10 +39,10 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import com.example.musicplayer.player.Player
-import com.example.musicplayer.ui.theme.PrimaryBar
-import com.example.musicplayer.ui.theme.SecondaryBar
-import com.example.musicplayer.ui.theme.Typography
+import com.example.audioplayer.player.Player
+import com.example.audioplayer.ui.theme.PrimaryBar
+import com.example.audioplayer.ui.theme.SecondaryBar
+import com.example.audioplayer.ui.theme.Typography
 import kotlinx.coroutines.delay
 import androidx.media3.common.Player as Media3Player
 

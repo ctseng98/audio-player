@@ -1,4 +1,4 @@
-package com.example.musicplayer.ui
+package com.example.audioplayer.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.example.musicplayer.ui.theme.PrimaryBar
+import com.example.audioplayer.ui.theme.PrimaryBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

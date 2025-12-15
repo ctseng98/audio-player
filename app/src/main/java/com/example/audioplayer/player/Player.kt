@@ -1,4 +1,4 @@
-package com.example.musicplayer.player
+package com.example.audioplayer.player
 
 import androidx.media3.common.Player as Media3Player
 import androidx.media3.exoplayer.ExoPlayer
